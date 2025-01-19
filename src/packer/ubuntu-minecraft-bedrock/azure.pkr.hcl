@@ -4,6 +4,8 @@ source "azure-arm" "vm" {
   client_jwt      = var.arm_client_jwt
   subscription_id = var.arm_subscription_id
   tenant_id       = var.arm_tenant_id
+  oidc_request_token = var.oidc_request_token
+  oidc_request_url = var.oidc_request_url
 
   image_offer     = var.marketplace_image.offer
   image_publisher = var.marketplace_image.publisher
