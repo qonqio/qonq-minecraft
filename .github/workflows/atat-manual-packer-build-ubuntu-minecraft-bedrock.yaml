@@ -1,4 +1,4 @@
-name: Packer-Frontend-ubuntu-minecraft-bedrock
+name: AT-AT-Manual-Packer-Build-ubuntu-minecraft-bedrock
 
 on:
   workflow_dispatch:
