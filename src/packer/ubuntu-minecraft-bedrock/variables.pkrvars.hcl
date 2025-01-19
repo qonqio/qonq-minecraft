@@ -1,4 +1,4 @@
-image_name             = "${image_name}"
-azure_primary_location = "${primary_location}"
-vm_size                = "${vm_size}"
-resource_group_name    = "${resource_group_name}"
+image_name             = "ubuntu-minecraft-bedrock"
+azure_primary_location = "eastus2"
+vm_size                = "Standard_DS2_v2"
+resource_group_name    = ""
