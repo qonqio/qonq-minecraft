@@ -7,10 +7,6 @@ variable "arm_tenant_id" {
 variable "arm_client_id" {
   type    = string
 }
-variable "arm_client_jwt" {
-  sensitive = true
-  type      = string
-}
 variable "image_name" {
   type = string
 }
