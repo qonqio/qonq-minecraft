@@ -20,6 +20,12 @@ resource "azurerm_network_interface" "vm1" {
   }
 }
 
+data "azurerm_shared_image_version" "minecraft" {
+  name                = "2025.01.19"
+  image_name          = "ubuntu-minecraft-bedrock"
+  gallery_name        = var.azure_gallery_name
+  resource_group_name = var.azure_gallery_resource_group
+}
 
 resource "azurerm_linux_virtual_machine" "vm1" {
   name                = "vm1${var.application_name}${var.environment_name}"
@@ -42,11 +48,15 @@ resource "azurerm_linux_virtual_machine" "vm1" {
     storage_account_type = "Standard_LRS"
   }
 
+  source_image_id = data.azurerm_shared_image_version.minecraft.id
+
+  /*
   source_image_reference {
     publisher = "Canonical"
     offer     = "0001-com-ubuntu-server-jammy"
     sku       = "22_04-lts"
     version   = "latest"
   }
+*/
 
 }

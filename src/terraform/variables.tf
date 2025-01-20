@@ -8,9 +8,15 @@ variable "location" {
   type = string
 }
 variable "additional_tags" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }
 variable "base_address_space" {
+  type = string
+}
+variable "azure_gallery_name" {
+  type = string
+}
+variable "azure_gallery_resource_group" {
   type = string
 }

@@ -40,6 +40,8 @@ jobs:
         ARM_USE_OIDC: true
         TF_VAR_application_name: ${{ vars.APPLICATION_NAME }}
         TF_VAR_environment_name: ${{ vars.ENVIRONMENT_NAME }}
+        TF_VAR_azure_gallery_name: ${{ vars.PACKER_COMPUTE_GALLERY_NAME }}
+        TF_VAR_azure_gallery_resource_group: ${{ vars.PACKER_COMPUTE_GALLERY_RESOURCE_GROUP }}
       working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
         export ARM_OID_REQUEST_TOKEN=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
@@ -61,6 +63,8 @@ jobs:
         ARM_USE_OIDC: true
         TF_VAR_application_name: ${{ vars.APPLICATION_NAME }}
         TF_VAR_environment_name: ${{ vars.ENVIRONMENT_NAME }}
+        TF_VAR_azure_gallery_name: ${{ vars.PACKER_COMPUTE_GALLERY_NAME }}
+        TF_VAR_azure_gallery_resource_group: ${{ vars.PACKER_COMPUTE_GALLERY_RESOURCE_GROUP }}
       working-directory: ${{ vars.TERRAFORM_WORKING_DIRECTORY }}
       run: |
         export ARM_OID_REQUEST_TOKEN=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
