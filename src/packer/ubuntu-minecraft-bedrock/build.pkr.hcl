@@ -187,14 +187,6 @@ build {
     ]
   }
 
-  # add CIFS mount
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "echo '//${var.file_server}/${var.share_name} ${var.share_path} cifs username=${var.share_username},password=${var.share_password},uid=1000,gid=1000 0 0' | sudo tee -a /etc/fstab"
-    ]
-  }
-
   # Minecraft Settings
   provisioner "shell" {
     execute_command = local.execute_command
