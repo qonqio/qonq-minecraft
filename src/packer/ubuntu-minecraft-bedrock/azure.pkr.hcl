@@ -13,6 +13,12 @@ source "azure-arm" "vm" {
 
   managed_image_name                = "${var.image_name}-${var.image_version}"
   managed_image_resource_group_name = var.resource_group_name
+  shared_image_gallery_destination {
+    resource_group = "rg-qonq-gallery-dev"
+    gallery_name   = "galqonqgallerydev"
+    image_name     = "ubuntu-minecraft-bedrock"
+    image_version  = "v1.0.0"
+  }
 
   location                     = var.azure_primary_location
   communicator                 = "ssh"
