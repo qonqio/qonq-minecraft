@@ -7,6 +7,12 @@ variable "arm_tenant_id" {
 variable "arm_client_id" {
   type    = string
 }
+variable "arm_oidc_request_token" {
+  type = string
+}
+variable "arm_oidc_request_url" {
+  type = string
+}
 variable "image_name" {
   type = string
 }
@@ -19,22 +25,22 @@ variable "agent_ipaddress" {
 variable "azure_primary_location" {
   type = string
 }
-variable "vm_size" {
+variable "azure_vm_size" {
   type = string
 }
-variable "resource_group_name" {
+variable "azure_managed_image_destination" {
   type = string
 }
-variable "marketplace_image" {
+variable "azure_gallery_name" {
+  type = string
+}
+variable "azure_gallery_resource_group" {
+  type = string
+}
+variable "azure_marketplace_image" {
   type = object({
     offer     = string
     publisher = string
     sku       = string
   })
-}
-variable "oidc_request_token" {
-  type = string
-}
-variable "oidc_request_url" {
-  type = string
 }
