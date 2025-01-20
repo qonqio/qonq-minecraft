@@ -7,10 +7,8 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "while fuser /var/lib/apt/lists/lock >/dev/null 2>&1; do echo 'Waiting for other apt-get process to finish...'; sleep 5; done",
-      "while fuser /var/lib/dpkg/lock-frontend >/dev/null 2>&1; do echo 'Waiting for other dpkg process to finish...'; sleep 5; done",
       "apt-get update",
-      "apt-get upgrade -y"
+      "apt-get clean"
     ]
   }
 
@@ -33,15 +31,6 @@ build {
     inline = [
       "apt-get update",
       "apt-get -y install unzip"
-    ]
-  }
-
-  # This package will allow us to mount a share drive that we can use to backup server data
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "apt-get update",
-      "apt-get -y install cifs-utils"
     ]
   }
 
@@ -90,7 +79,7 @@ build {
     inline = [
       "DOWNLOAD_URL=$(curl -H \"Accept-Encoding: identity\" -H \"Accept-Language: en\" -s -L -A \"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; BEDROCK-UPDATER)\" https://minecraft.net/en-us/download/server/bedrock/ |  grep -o 'https://minecraft.azureedge.net/bin-linux/[^\"]*')",
       "wget $DOWNLOAD_URL -O /home/mcserver/minecraft_bedrock/bedrock-server.zip",
-      "unzip -q /home/mcserver/minecraft_bedrock/bedrock-server.zip -d /home/mcserver/minecraft_bedrock/",
+      "unzip /home/mcserver/minecraft_bedrock/bedrock-server.zip -d /home/mcserver/minecraft_bedrock/",
       "rm /home/mcserver/minecraft_bedrock/bedrock-server.zip",
       "chown -R mcserver: /home/mcserver/"
       ]
@@ -119,108 +108,6 @@ build {
     inline = [
       "cp /tmp/stop_server.sh /home/mcserver/minecraft_bedrock/",
       "chmod +x /home/mcserver/minecraft_bedrock/stop_server.sh"
-    ]
-  }
-
-  # Server Properties
-  provisioner "file" {
-    source = "./files/server.properties"
-    destination = "/tmp/server.properties"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "cp /tmp/server.properties /home/mcserver/minecraft_bedrock/",
-      "chmod +rX /home/mcserver/minecraft_bedrock/server.properties"
-    ]
-  }
-
-  # Permissions
-  provisioner "file" {
-    source = "./files/permissions.json"
-    destination = "/tmp/permissions.json"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "cp /tmp/permissions.json /home/mcserver/minecraft_bedrock/",
-      "chmod +rX /home/mcserver/minecraft_bedrock/permissions.json"
-    ]
-  }
-
-  # Allow List
-  provisioner "file" {
-    source = "./files/allowlist.json"
-    destination = "/tmp/allowlist.json"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "cp /tmp/allowlist.json /home/mcserver/minecraft_bedrock/",
-      "chmod +rX /home/mcserver/minecraft_bedrock/allowlist.json"
-    ]
-  }
-
-  # Backup Minecraft Script
-  provisioner "file" {
-    source = "./files/backup_minecraft.sh"
-    destination = "/tmp/backup_minecraft.sh"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "cp /tmp/backup_minecraft.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +rX /home/mcserver/minecraft_bedrock/backup_minecraft.sh"
-    ]
-  }
-
-  # Upgrade Minecraft Script
-  provisioner "file" {
-    source = "./files/upgrade_minecraft.sh"
-    destination = "/tmp/upgrade_minecraft.sh"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "cp /tmp/upgrade_minecraft.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +rX /home/mcserver/minecraft_bedrock/upgrade_minecraft.sh"
-    ]
-  }
-
-  # Minecraft Settings
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "sed -i 's/\\[server_name\\]/${var.minecraft_server_name}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[game_mode\\]/${var.minecraft_game_mode}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[difficulty\\]/${var.minecraft_difficulty}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[allow_cheats\\]/${var.minecraft_allow_cheats}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[max_players\\]/${var.minecraft_max_players}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[allow_list\\]/${var.minecraft_allow_list}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[level_name\\]/${var.minecraft_level_name}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[level_seed\\]/${var.minecraft_level_seed}/g' /home/mcserver/minecraft_bedrock/server.properties",
-      "sed -i 's/\\[default_player_permission_level\\]/${var.minecraft_detault_permission_level}/g' /home/mcserver/minecraft_bedrock/server.properties"
-    ]
-  }
-
-  # Minecraft Permissions
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "sed -i 's/\\[admin_xuid\\]/${var.minecraft_operator}/g' /home/mcserver/minecraft_bedrock/permissions.json",
-    ]
-  }
-
-  # Setup Minecraft Upgrade CRON Job
-  provisioner "file" {
-    source = "./files/create_upgrade_cron.sh"
-    destination = "/tmp/create_upgrade_cron.sh"
-  }
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "chmod +x /tmp/create_upgrade_cron.sh",
-      "/tmp/create_upgrade_cron.sh"
     ]
   }
 
