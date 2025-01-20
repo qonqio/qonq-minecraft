@@ -17,7 +17,7 @@ source "azure-arm" "vm" {
     resource_group = "rg-qonq-gallery-dev"
     gallery_name   = "galqonqgallerydev"
     image_name     = "ubuntu-minecraft-bedrock"
-    image_version  = "1.0.0"
+    image_version  = var.image_version
   }
 
   location                     = var.azure_primary_location
