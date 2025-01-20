@@ -15,18 +15,23 @@ resource "azurerm_network_security_group" "minecraft" {
 
 }
 
-resource "azurerm_network_security_rule" "minecraft" {
+resource "azurerm_network_security_rule" "minecraft_game_port" {
 
   resource_group_name         = azurerm_resource_group.main.name
   network_security_group_name = azurerm_network_security_group.minecraft.name
   name                        = "game-port"
   priority                    = 100
-  direction                   = "Outbound"
+  direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Udp"
-  source_port_range           = "19132-19133"
+  source_port_range           = "*"
   destination_port_range      = "19132-19133"
   source_address_prefix       = "*"
   destination_address_prefix  = "*"
 
+}
+
+resource "azurerm_subnet_network_security_group_association" "minecraft" {
+  subnet_id                 = azurerm_subnet.default.id
+  network_security_group_id = azurerm_network_security_group.minecraft.id
 }
