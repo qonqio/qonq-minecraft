@@ -21,7 +21,7 @@ resource "azurerm_network_interface" "vm1" {
 }
 
 data "azurerm_shared_image_version" "minecraft" {
-  name                = "2025.01.19"
+  name                = "2025.01.20"
   image_name          = "ubuntu-minecraft-bedrock"
   gallery_name        = var.azure_gallery_name
   resource_group_name = var.azure_gallery_resource_group
