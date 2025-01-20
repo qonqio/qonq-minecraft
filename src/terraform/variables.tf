@@ -20,3 +20,12 @@ variable "azure_gallery_name" {
 variable "azure_gallery_resource_group" {
   type = string
 }
+variable "admin_user" {
+  type = string
+}
+variable "vm_size" {
+  type = string
+}
+variable "image_version" {
+  type = string
+}

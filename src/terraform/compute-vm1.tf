@@ -21,25 +21,31 @@ resource "azurerm_network_interface" "vm1" {
 }
 
 data "azurerm_shared_image_version" "minecraft" {
-  name                = "2025.01.20"
+  name                = var.image_version
   image_name          = "ubuntu-minecraft-bedrock"
   gallery_name        = var.azure_gallery_name
   resource_group_name = var.azure_gallery_resource_group
 }
 
+locals {
+  clean_vm_name = replace("vm1${var.application_name}${var.environment_name}", "-", "")
+}
+
 resource "azurerm_linux_virtual_machine" "vm1" {
-  name                = "vm1${var.application_name}${var.environment_name}"
+
+  name                = local.clean_vm_name
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  size                = "Standard_D4s_v4"
-  admin_username      = "adminuser"
+  size                = var.vm_size
+  admin_username      = var.admin_user
+  source_image_id     = data.azurerm_shared_image_version.minecraft.id
 
   network_interface_ids = [
     azurerm_network_interface.vm1.id,
   ]
 
   admin_ssh_key {
-    username   = "adminuser"
+    username   = var.admin_user
     public_key = tls_private_key.vm1.public_key_openssh
   }
 
@@ -47,16 +53,5 @@ resource "azurerm_linux_virtual_machine" "vm1" {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
-
-  source_image_id = data.azurerm_shared_image_version.minecraft.id
-
-  /*
-  source_image_reference {
-    publisher = "Canonical"
-    offer     = "0001-com-ubuntu-server-jammy"
-    sku       = "22_04-lts"
-    version   = "latest"
-  }
-*/
 
 }
