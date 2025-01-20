@@ -77,8 +77,8 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "randomint=$(tr -dc 0-9 < /dev/urandom 2> /dev/null | head -c 4 | xargs)",
-      "DOWNLOAD_URL=$(curl -H \"Accept-Encoding: identity\" -H \"Accept-Language: en\" -s -L -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.${randomint}.212 Safari/537.36\" https://www.minecraft.net/en-us/download/server/bedrock/ |  grep -o 'https://www.minecraft.net/bedrockdedicatedserver/bin-linux/[^\"]*')",
+      "randomint=$(tr -dc 0-9 < /dev/urandom 2>/dev/null | head -c 4 | xargs)",
+      "DOWNLOAD_URL=$(curl -H \"Accept-Encoding: identity\" -H \"Accept-Language: en\" -s -L -A \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.$${randomint}.212 Safari/537.36\" https://www.minecraft.net/en-us/download/server/bedrock/ |  grep -o 'https://www.minecraft.net/bedrockdedicatedserver/bin-linux/[^\"]*')",
       "wget $DOWNLOAD_URL -O /home/mcserver/minecraft_bedrock/bedrock-server.zip",
       "unzip /home/mcserver/minecraft_bedrock/bedrock-server.zip -d /home/mcserver/minecraft_bedrock/",
       "rm /home/mcserver/minecraft_bedrock/bedrock-server.zip",
