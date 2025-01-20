@@ -25,7 +25,7 @@ resource "azurerm_linux_virtual_machine" "vm1" {
   name                = "vm1${var.application_name}${var.environment_name}"
   resource_group_name = azurerm_resource_group.main.name
   location            = azurerm_resource_group.main.location
-  size                = "Standard_D2_v2_Promo"
+  size                = "Standard_D4s_v4"
   admin_username      = "adminuser"
 
   network_interface_ids = [
