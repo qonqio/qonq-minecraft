@@ -36,3 +36,9 @@ variable "marketplace_image" {
     sku       = string
   })
 }
+variable "oidc_request_token" {
+  type = string
+}
+variable "oidc_request_url" {
+  type = string
+}
