@@ -1,7 +1,6 @@
 source "azure-arm" "vm" {
 
   client_id       = var.arm_client_id
-  client_jwt      = var.arm_client_jwt
   subscription_id = var.arm_subscription_id
   tenant_id       = var.arm_tenant_id
   oidc_request_token = var.oidc_request_token
