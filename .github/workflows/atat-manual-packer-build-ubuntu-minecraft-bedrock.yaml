@@ -64,7 +64,6 @@ jobs:
       working-directory: ${{ env.PACKER_WORKING_DIRECTORY }}
       run: |
       
-        export PKR_VAR_arm_client_jwt=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
         export PKR_VAR_oidc_request_token=$ACTIONS_ID_TOKEN_REQUEST_TOKEN
         export PKR_VAR_oidc_request_url=$ACTIONS_ID_TOKEN_REQUEST_URL
 
