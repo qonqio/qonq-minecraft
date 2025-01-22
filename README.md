@@ -1,2 +1,2 @@
 # qonq-minecraft
-QONOQ Minecraft Server
+QONQ Minecraft Server
