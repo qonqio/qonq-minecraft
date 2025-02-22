@@ -8,7 +8,7 @@ resource "azurerm_subnet" "bastion" {
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes     = [local.bastion_address_space]
 }
-
+/*
 resource "azurerm_public_ip" "bastion" {
   name                = "pip-${var.application_name}-${var.environment_name}-bastion"
   location            = azurerm_resource_group.main.location
@@ -28,3 +28,4 @@ resource "azurerm_bastion_host" "main" {
     public_ip_address_id = azurerm_public_ip.bastion.id
   }
 }
+*/
