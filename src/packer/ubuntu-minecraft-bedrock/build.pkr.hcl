@@ -112,6 +112,32 @@ build {
     ]
   }
 
+  # Minecraft restore.sh
+  provisioner "file" {
+    source = "./files/mcops-restore.sh"
+    destination = "/tmp/mcops-restore.sh"
+  }
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/mcops-restore.sh /home/mcserver/minecraft_bedrock/",
+      "chmod +x /home/mcserver/minecraft_bedrock/mcops-restore.sh"
+    ]
+  }
+
+  # Minecraft upgrade.sh
+  provisioner "file" {
+    source = "./files/mcops-upgrade.sh"
+    destination = "/tmp/mcops-upgrade.sh"
+  }
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/mcops-upgrade.sh /home/mcserver/minecraft_bedrock/",
+      "chmod +x /home/mcserver/minecraft_bedrock/mcops-upgrade.sh"
+    ]
+  }
+
   # Minecraft systemctl service
   provisioner "file" {
     source = "./files/mcbedrock.service"
