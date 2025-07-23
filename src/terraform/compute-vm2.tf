@@ -37,6 +37,7 @@ resource "azurerm_user_assigned_identity" "vm2" {
   location            = azurerm_resource_group.main.location
 }
 
+/*
 resource "azurerm_linux_virtual_machine" "vm2" {
 
   name                = local.clean_vm2_name
@@ -66,3 +67,4 @@ resource "azurerm_linux_virtual_machine" "vm2" {
   }
 
 }
+*/
