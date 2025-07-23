@@ -21,8 +21,8 @@ resource "azurerm_network_interface" "vm2" {
 }
 
 data "azurerm_shared_image_version" "vm2" {
-  name                = "2025.07.27"
-  image_name          = "ubuntu-minecraft-bedrock"
+  name                = "2025.07.4"
+  image_name          = "ubuntu-minecraft-java"
   gallery_name        = var.azure_gallery_name
   resource_group_name = var.azure_gallery_resource_group
 }
@@ -37,7 +37,6 @@ resource "azurerm_user_assigned_identity" "vm2" {
   location            = azurerm_resource_group.main.location
 }
 
-/*
 resource "azurerm_linux_virtual_machine" "vm2" {
 
   name                = local.clean_vm2_name
@@ -67,4 +66,3 @@ resource "azurerm_linux_virtual_machine" "vm2" {
   }
 
 }
-*/
