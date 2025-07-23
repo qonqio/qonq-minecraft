@@ -174,6 +174,58 @@ build {
     inline          = ["chown -R ${local.service_username}: /home/${local.service_username}/"]
   }
 
+  # start the Minecraft server to generate initial files
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "systemctl enable mcjava",
+      "systemctl start mcjava",
+      "sleep 60",
+      "systemctl stop mcjava",
+      "systemctl disable mcjava"
+    ]
+  }
+
+  # Minecraft EULA
+  provisioner "file" {
+    source      = "./files/eula.txt"
+    destination = "/tmp/eula.txt"
+  }
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/eula.txt /home/mcserver/${local.server_folder_name}/"
+    ]
+  }
+
+  # Minecraft Server Properties
+  provisioner "file" {
+    source      = "./files/server.properties"
+    destination = "/tmp/server.properties"
+  }
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/server.properties /home/mcserver/${local.server_folder_name}/"
+    ]
+  }
+
+  # Minecraft Ops file
+  provisioner "file" {
+    source      = "./files/ops.json"
+    destination = "/tmp/ops.json"
+  }
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "cp /tmp/ops.json /home/mcserver/${local.server_folder_name}/"
+    ]
+  }
+
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline          = ["chown -R mcserver: /home/mcserver/"]
+  }
 
   provisioner "shell" {
     execute_command = local.execute_command
