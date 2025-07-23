@@ -46,6 +46,11 @@ resource "azurerm_linux_virtual_machine" "vm1" {
   admin_username      = var.admin_user
   source_image_id     = data.azurerm_shared_image_version.minecraft.id
 
+  identity {
+    type         = "UserAssigned"
+    identity_ids = [azurerm_user_assigned_identity.vm1.id]
+  }
+
   network_interface_ids = [
     azurerm_network_interface.vm1.id,
   ]
