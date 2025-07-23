@@ -61,40 +61,21 @@ build {
     inline          = ["apt-get -y install openssl"]
   }
 
-  # required by Minecraft Bedrock
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb -O libssl1.1.deb",
-      "dpkg -i libssl1.1.deb",
-      "rm libssl1.1.deb"
-    ]
-  }
-
   # Setup Minecraft User Account
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "useradd -m mcserver",
-      "usermod -a -G mcserver $USER",
-      "mkdir -p /home/mcserver/minecraft_bedrock"
+      "useradd -m ${local.service_username}"
+      "usermod -a -G ${local.service_username} $USER",
+      "mkdir -p ${local.server_folder_path}"
     ]
   }
 
   # Download Minecraft Bedrock server
   provisioner "shell" {
-    execute_command = local.execute_command
-    script          = "./scripts/download_minecraft.sh"
-  }
-
-  # Install Minecraft
-  provisioner "shell" {
-    execute_command = local.execute_command
-    inline = [
-      "unzip /home/mcserver/minecraft_bedrock/bedrock-server.zip -d /home/mcserver/minecraft_bedrock/",
-      "rm /home/mcserver/minecraft_bedrock/bedrock-server.zip",
-      "chown -R mcserver: /home/mcserver/"
-    ]
+    execute_command  = local.execute_command
+    script           = "./scripts/download_minecraft.sh"
+    environment_vars = ["WORKDIR=${local.server_folder_path}"]
   }
 
   # Minecraft start_server.sh
@@ -105,8 +86,8 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "cp /tmp/start_server.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +x /home/mcserver/minecraft_bedrock/start_server.sh"
+      "cp /tmp/start_server.sh ${local.server_folder_path}/",
+      "chmod +x ${local.server_folder_path}/start_server.sh"
     ]
   }
 
@@ -118,63 +99,63 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "cp /tmp/stop_server.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +x /home/mcserver/minecraft_bedrock/stop_server.sh"
+      "cp /tmp/stop_server.sh ${local.server_folder_path}/",
+      "chmod +x ${local.server_folder_path}/stop_server.sh"
     ]
   }
 
   # Minecraft backup_server.sh
   provisioner "file" {
-    source      = "./files/backup_server.sh"
-    destination = "/tmp/backup_server.sh"
+    source      = "./files/ops_backup_server.sh"
+    destination = "/tmp/ops_backup_server.sh"
   }
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "cp /tmp/backup_server.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +x /home/mcserver/minecraft_bedrock/backup_server.sh"
+      "cp /tmp/ops_backup_server.sh ${local.server_folder_path}/",
+      "chmod +x ${local.server_folder_path}/ops_backup_server.sh"
     ]
   }
 
   # Minecraft restore_server.sh
   provisioner "file" {
-    source      = "./files/restore_server.sh"
-    destination = "/tmp/restore_server.sh"
+    source      = "./files/ops_restore_server.sh"
+    destination = "/tmp/ops_restore_server.sh"
   }
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "cp /tmp/restore_server.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +x /home/mcserver/minecraft_bedrock/restore_server.sh"
+      "cp /tmp/ops_restore_server.sh ${local.server_folder_path}/",
+      "chmod +x ${local.server_folder_path}/ops_restore_server.sh"
     ]
   }
 
   # Minecraft upgrade_server.sh
   provisioner "file" {
-    source      = "./files/upgrade_server.sh"
-    destination = "/tmp/upgrade_server.sh"
+    source      = "./files/ops_upgrade_server.sh"
+    destination = "/tmp/ops_upgrade_server.sh"
   }
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "cp /tmp/upgrade_server.sh /home/mcserver/minecraft_bedrock/",
-      "chmod +x /home/mcserver/minecraft_bedrock/upgrade_server.sh"
+      "cp /tmp/ops_upgrade_server.sh ${local.server_folder_path}/",
+      "chmod +x ${local.server_folder_path}/ops_upgrade_server.sh"
     ]
   }
 
   # Minecraft systemctl service
   provisioner "file" {
-    source      = "./files/mcbedrock.service"
-    destination = "/tmp/mcbedrock.service"
+    source      = "./files/${local.service_name}.service"
+    destination = "/tmp/${local.service_name}.service"
   }
   provisioner "shell" {
     execute_command = local.execute_command
-    inline          = ["cp /tmp/mcbedrock.service /etc/systemd/system/"]
+    inline          = ["cp /tmp/${local.service_name}.service /etc/systemd/system/"]
   }
 
   provisioner "shell" {
     execute_command = local.execute_command
-    inline          = ["chown -R mcserver: /home/mcserver/"]
+    inline          = ["chown -R ${local.service_username}: /home/${local.service_username}/"]
   }
 
 
