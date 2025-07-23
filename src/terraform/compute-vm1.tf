@@ -31,6 +31,12 @@ locals {
   clean_vm_name = replace("vm1${var.application_name}${var.environment_name}", "-", "")
 }
 
+resource "azurerm_user_assigned_identity" "vm1" {
+  name                = "mi-${var.application_name}-${var.environment_name}-vm1"
+  resource_group_name = azurerm_resource_group.main.name
+  location            = azurerm_resource_group.main.location
+}
+
 resource "azurerm_linux_virtual_machine" "vm1" {
 
   name                = local.clean_vm_name
