@@ -21,7 +21,7 @@ resource "azurerm_network_interface" "vm2" {
 }
 
 data "azurerm_shared_image_version" "vm2" {
-  name                = "2025.07.6"
+  name                = "2025.07.7"
   image_name          = "ubuntu-minecraft-java"
   gallery_name        = var.azure_gallery_name
   resource_group_name = var.azure_gallery_resource_group

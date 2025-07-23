@@ -31,6 +31,38 @@ resource "azurerm_network_security_rule" "minecraft_game_port" {
 
 }
 
+resource "azurerm_network_security_rule" "minecraft_java_port" {
+
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.minecraft.name
+  name                        = "minecraft-java"
+  priority                    = 110
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "25565"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+
+}
+
+resource "azurerm_network_security_rule" "rcon_port" {
+
+  resource_group_name         = azurerm_resource_group.main.name
+  network_security_group_name = azurerm_network_security_group.minecraft.name
+  name                        = "rcon-java"
+  priority                    = 120
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "25575"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+
+}
+
 resource "azurerm_subnet_network_security_group_association" "minecraft" {
   subnet_id                 = azurerm_subnet.default.id
   network_security_group_id = azurerm_network_security_group.minecraft.id
