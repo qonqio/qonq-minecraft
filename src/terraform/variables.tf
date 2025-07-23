@@ -26,6 +26,3 @@ variable "admin_user" {
 variable "vm_size" {
   type = string
 }
-variable "image_version" {
-  type = string
-}

@@ -19,3 +19,11 @@ resource "azurerm_role_assignment" "vm1_blob_data_owner" {
   principal_id         = azurerm_user_assigned_identity.vm1.principal_id
 
 }
+
+resource "azurerm_role_assignment" "vm2_blob_data_owner" {
+
+  scope                = azurerm_storage_account.main.id
+  role_definition_name = "Storage Blob Data Owner"
+  principal_id         = azurerm_user_assigned_identity.vm2.principal_id
+
+}

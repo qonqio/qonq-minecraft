@@ -65,7 +65,7 @@ build {
   provisioner "shell" {
     execute_command = local.execute_command
     inline = [
-      "useradd -m ${local.service_username}"
+      "useradd -m ${local.service_username}",
       "usermod -a -G ${local.service_username} $USER",
       "mkdir -p ${local.server_folder_path}"
     ]
