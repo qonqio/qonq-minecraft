@@ -3,8 +3,8 @@ set -euo pipefail
 exec > >(tee -a /home/mcserver/restore_server.log) 2>&1
 
 # Configurable paths
-SERVICE_NAME="mcbedrock"
-SERVER_DIR="/home/mcserver/minecraft_bedrock"
+SERVICE_NAME="mcjava"
+SERVER_DIR="/home/mcserver/minecraft_java"
 BACKUP_ROOT="/home/mcserver/backup"
 BACKUP_DIR="$BACKUP_ROOT/$1"
 

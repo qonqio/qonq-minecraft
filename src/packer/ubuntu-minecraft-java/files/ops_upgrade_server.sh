@@ -3,10 +3,9 @@ set -euo pipefail
 exec > >(tee -a /home/mcserver/upgrade_server.log) 2>&1
 
 # Configurable paths
-SERVICE_NAME="mcbedrock"
+SERVICE_NAME="mcjava"
+SERVER_DIR="/home/mcserver/minecraft_java"
 VERSION_FILE="/home/mcserver/version.txt"
-LOG_FILE="/home/mcserver/upgrade_server.log"
-SERVER_DIR="/home/mcserver/minecraft_bedrock"
 BACKUP_ROOT="/home/mcserver/backup"
 TIMESTAMP=$(date +"%Y-%m-%d-%H-%M-%S")
 BACKUP_DIR="$BACKUP_ROOT/$TIMESTAMP"
