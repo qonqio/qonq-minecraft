@@ -1,5 +1,5 @@
 [Unit]
-Description=Minecraft Bedrock Server
+Description=Minecraft Java Server
 Wants=network-online.target
 After=network-online.target
 

@@ -67,6 +67,16 @@ build {
     inline          = ["apt-get -y install jq"]
   }
 
+  # JRE
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline = [
+      "add-apt-repository ppa:openjdk-r/ppa",
+      "apt-get update",
+      "apt-get -y install openjdk-21-jdk"
+    ]
+  }
+
   # Setup Minecraft User Account
   provisioner "shell" {
     execute_command = local.execute_command
