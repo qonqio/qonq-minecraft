@@ -71,6 +71,12 @@ build {
     ]
   }
 
+  # The jq package is what we will use to parse JSON data in our scripts.
+  provisioner "shell" {
+    execute_command = local.execute_command
+    inline          = ["apt-get -y install jq"]
+  }
+
   # Setup Minecraft User Account
   provisioner "shell" {
     execute_command = local.execute_command
