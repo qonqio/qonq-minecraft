@@ -15,7 +15,7 @@ USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 
 echo "$(date): Using User Agent $USER_AGENT"
 
-if ! curl -H "Accept-Encoding: identity" -H "Accept-Language:en" -A "$USER_AGENT" -fSL "$DOWNLOAD_URL" -o ./bedrock-server.zip; then
+if ! curl -H "Accept-Encoding: identity" -H "Accept-Language:en" -A "$USER_AGENT" -fSL "$DOWNLOAD_URL" -o "$WORKDIR/bedrock-server.zip"; then
 	echo "$(date): ERROR: failed to download Bedrock server from $DOWNLOAD_URL"
 	exit 1
 fi

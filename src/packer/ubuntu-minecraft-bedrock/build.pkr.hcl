@@ -89,8 +89,9 @@ build {
 
   # Download Minecraft Bedrock server
   provisioner "shell" {
-    execute_command = local.execute_command
-    script          = "./scripts/download_minecraft.sh"
+    execute_command  = local.execute_command
+    script           = "./scripts/download_minecraft.sh"
+    environment_vars = ["WORKDIR=${local.server_folder_path}"]
   }
 
   # Install Minecraft
