@@ -26,7 +26,7 @@ module "p1" {
 
   material       = "minecraft:dirt"
   start_position = { x = -1532, y = 66, z = -1177 }
-  height         = 3
+  length         = 3
 }
 
 module "island_near_nether_portal" {
@@ -34,7 +34,7 @@ module "island_near_nether_portal" {
 
   material       = "minecraft:dirt"
   start_position = { x = -1564, y = 60, z = -1181 }
-  height         = 3
+  length         = 3
   width          = 8
   depth          = 8
 }
@@ -54,12 +54,12 @@ module "w1" {
 
 
 module "pyramid" {
-  source = "./modules/pyramid"
+  source = "./modules/solid-pyramid"
 
   material = "minecraft:gold_block"
 
   start_position = {
-    x = -1800,
+    x = -1650,
     y = 62,
     z = -1100
   }
@@ -68,6 +68,9 @@ module "pyramid" {
 }
 
 module "pyramid2" {
+
+  count = 1
+
   source = "./modules/pyramid"
 
   material = "minecraft:diamond_block"

@@ -17,7 +17,7 @@ module "pillars" {
 
   source   = "../pillar"
   material = var.material
-  height   = var.height
+  length   = var.length
 
   start_position = {
     x = var.start_position.x + each.value.x_offset

@@ -62,7 +62,7 @@ module "roof" {
   }
 
   width  = 6
-  height = 1
+  length = 1
   depth  = 6
 }
 

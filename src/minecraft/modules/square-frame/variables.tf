@@ -1,7 +1,3 @@
-variable "material" {
-  type = string
-}
-
 variable "start_position" {
   type = object({
     x = number
@@ -10,14 +6,10 @@ variable "start_position" {
   })
 }
 
-variable "width" {
-  type = number
+variable "material" {
+  description = "Material used for the frame (e.g. dirt)"
+  type        = string
 }
-
 variable "length" {
-  type = number
-}
-
-variable "depth" {
   type = number
 }

@@ -10,14 +10,6 @@ variable "start_position" {
   })
 }
 
-variable "width" {
-  type = number
-}
-
 variable "length" {
-  type = number
-}
-
-variable "depth" {
   type = number
 }

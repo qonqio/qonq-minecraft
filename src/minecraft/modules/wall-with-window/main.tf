@@ -34,7 +34,7 @@ module "bottom_beam" {
     z = local.offset_0_0.z
   }
   width  = var.direction == "east" ? 4 : 1
-  height = 1
+  length = 1
   depth  = var.direction == "east" ? 1 : 4
 }
 
@@ -49,7 +49,7 @@ module "top_beam" {
   }
 
   width  = var.direction == "east" ? 4 : 1
-  height = 1
+  length = 1
   depth  = var.direction == "east" ? 1 : 4
 }
 
@@ -64,7 +64,7 @@ module "glass_window" {
   }
 
   width  = var.direction == "east" ? 2 : 1
-  height = 2
+  length = 2
   depth  = var.direction == "east" ? 1 : 2
 }
 
@@ -80,7 +80,7 @@ module "left_post" {
   }
 
   width  = 1
-  height = 2
+  length = 2
   depth  = 1
 
   depends_on = [module.bottom_beam, module.top_beam]
@@ -97,7 +97,7 @@ module "right_post" {
   }
 
   width  = 1
-  height = 2
+  length = 2
   depth  = 1
 
   depends_on = [module.bottom_beam, module.top_beam]
