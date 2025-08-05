@@ -1,6 +1,6 @@
 locals {
   layers = flatten([
-    for i in range(0, 100) : [
+    for i in range(1, 100) : [
       {
         offset = i
         length = var.length - 2 * i
@@ -9,6 +9,21 @@ locals {
     ]
     if var.length - 2 * i >= 2
   ])
+}
+
+module "base_layer" {
+  source   = "../cuboid"
+  material = var.material
+
+  start_position = {
+    x = var.start_position.x
+    y = var.start_position.y
+    z = var.start_position.z
+  }
+
+  width  = var.length
+  depth  = var.length
+  length = 1
 }
 
 module "frame_layers" {
