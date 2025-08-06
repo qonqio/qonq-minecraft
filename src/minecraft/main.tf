@@ -84,6 +84,23 @@ module "pyramid2" {
 
 }
 
+module "pyramid3" {
+
+  count = 1
+
+  source = "./modules/pyramid"
+
+  material = "minecraft:iron_block"
+
+  start_position = {
+    x = -1600,
+    y = 62,
+    z = -1151
+  }
+  length = 20
+
+}
+
 module "train_track" {
   source = "./modules/train-track"
 
@@ -97,3 +114,52 @@ module "train_track" {
 
 }
 
+
+// arch
+//-1514, 66, -1210
+/*
+module "arch" {
+  source = "./modules/arch"
+
+  start_position = {
+    x = -1514
+    y = 70
+    z = -1210
+  }
+
+  material  = "minecraft:stone"
+  length    = 8
+  direction = "east"
+
+}
+*/
+
+module "arch" {
+  source = "./modules/arch-wall"
+
+  start_position = {
+    x = -1514
+    y = 70
+    z = -1210
+  }
+
+  material    = "minecraft:stone"
+  arch_length = 8
+  arch_count  = 128
+  direction   = "east"
+
+}
+
+
+module "w3" {
+  source = "./modules/small-hut"
+
+  material       = "minecraft:oak_planks"
+  glass_material = "minecraft:glass_pane"
+  start_position = {
+    x = -1516,
+    y = 66,
+    z = -1211
+  }
+
+}
