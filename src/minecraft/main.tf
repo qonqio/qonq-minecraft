@@ -152,6 +152,9 @@ module "arch" {
 
 
 module "w3" {
+
+  count = 1
+
   source = "./modules/small-hut"
 
   material       = "minecraft:oak_planks"
