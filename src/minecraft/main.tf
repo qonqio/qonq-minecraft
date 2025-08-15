@@ -22,21 +22,35 @@ resource "minecraft_block" "dirt" {
 }
 
 module "p1" {
+
   source = "./modules/pillar"
 
-  material       = "minecraft:dirt"
-  start_position = { x = -1532, y = 66, z = -1177 }
-  length         = 3
+  material = "minecraft:dirt"
+  length   = 3
+
+  start_position = {
+    x = -1532,
+    y = 66,
+    z = -1177
+  }
+
 }
 
 module "island_near_nether_portal" {
+
   source = "./modules/cuboid"
 
-  material       = "minecraft:dirt"
-  start_position = { x = -1564, y = 60, z = -1181 }
-  length         = 3
-  width          = 8
-  depth          = 8
+  material = "minecraft:dirt"
+  length   = 3
+  width    = 8
+  depth    = 8
+
+  start_position = {
+    x = -1564,
+    y = 60,
+    z = -1181
+  }
+
 }
 
 module "w1" {
@@ -74,13 +88,13 @@ module "pyramid2" {
   source = "./modules/pyramid"
 
   material = "minecraft:diamond_block"
+  length   = 20
 
   start_position = {
     x = -1600,
     y = 62,
     z = -1101
   }
-  length = 20
 
 }
 
