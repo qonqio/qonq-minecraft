@@ -23,7 +23,7 @@ module "bedrock_rules" {
 }
 
 data "azurerm_shared_image_version" "bedrock_home" {
-  name                = "2025.01.26"
+  name                = "2025.07.31"
   image_name          = "ubuntu-minecraft-bedrock"
   gallery_name        = var.azure_gallery_name
   resource_group_name = var.azure_gallery_resource_group
@@ -45,6 +45,6 @@ resource "azurerm_role_assignment" "bedrock_home_blob_data_owner" {
 
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = azurerm_user_assigned_identity.bedrock_home.principal_id
+  principal_id         = module.bedrock_home.managed_id
 
 }
