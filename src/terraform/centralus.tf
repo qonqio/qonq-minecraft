@@ -11,7 +11,7 @@ module "centralus_network" {
   resource_group_name = azurerm_resource_group.centralus.name
   location            = azurerm_resource_group.centralus.location
   base_address_space  = "10.64.4.0/22"
-  enable_bastion      = false
+  enable_bastion      = true
 }
 
 module "bedrock_rules" {
@@ -45,6 +45,6 @@ resource "azurerm_role_assignment" "bedrock_home_blob_data_owner" {
 
   scope                = azurerm_storage_account.main.id
   role_definition_name = "Storage Blob Data Owner"
-  principal_id         = module.bedrock_home.managed_id
+  principal_id         = module.bedrock_home.principal_id
 
 }
