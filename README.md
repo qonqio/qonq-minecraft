@@ -22,3 +22,13 @@ sudo su - mcserver
 screen -r mcserver
 ```
 
+op yourself
+
+```
+op PlayerName
+```
+
+```
+/gamemode creative
+/gamemode creative PlayerName
+```
