@@ -14,10 +14,11 @@ source "azure-arm" "vm" {
   managed_image_resource_group_name = var.azure_managed_image_destination
 
   shared_image_gallery_destination {
-    gallery_name   = var.azure_gallery_name
-    resource_group = var.azure_gallery_resource_group
-    image_name     = var.image_name
-    image_version  = var.image_version
+    gallery_name        = var.azure_gallery_name
+    resource_group      = var.azure_gallery_resource_group
+    image_name          = var.image_name
+    image_version       = var.image_version
+    replication_regions = ["eastus", "centralus"]
   }
 
   location                     = var.azure_primary_location
